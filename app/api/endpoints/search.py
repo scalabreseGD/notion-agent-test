@@ -1,8 +1,10 @@
 from fastapi import APIRouter
+from duckduckgo_search import DDGS
 
 router = APIRouter()
 
 @router.get("/search")
-def search_notion():
-    # This is a placeholder for the actual Notion search logic
-    return {"message": "Search results"}
+def search_ddg(query: str):
+    with DDGS() as ddgs:
+        results = ddgs.text(query)
+        return results
